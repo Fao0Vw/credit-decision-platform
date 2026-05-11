@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: api-gateway-config
+  namespace: credit-system
+
+data:
+  PORT: "8080"
+  DEFAULT_SCORE: "1000"

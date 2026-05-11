@@ -19,22 +19,27 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: api-gateway:latest
+          image: api-gateway:0.3
+
+          envFrom:
+            - configMapRef:
+                name: api-gateway-config
 
           imagePullPolicy: Never
 
           ports:
-            - containerPort: 8080
+          - name: health-port
+            containerPort: 8080
 
           livenessProbe:
               httpGet:
-                path: /error
-                port: 8080
+                path: /health
+                port: health-port
               initialDelaySeconds: 10
-              periodSeconds: 5
+              periodSeconds: 10
           readinessProbe:
               httpGet:
                 path: /health
-                port: 8080
+                port: health-port
               initialDelaySeconds: 10
               periodSeconds: 5
